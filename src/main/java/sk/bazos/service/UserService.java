@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/user")
-@Api(value = "user", description = "User.")
+@Api(value = "user", description = "Basic crud over user entity.")
 
 public class UserService {
     @Autowired
@@ -22,7 +22,7 @@ public class UserService {
     //Create User
 
     @PostMapping(consumes = "application/json",produces = "application/json")
-    public Long createUser(@RequestBody User user) throws IOException {
+    public Long createUser(@RequestBody User user)  {
         return userRepository.save(user).getId();
     }
 
@@ -57,7 +57,7 @@ public class UserService {
     //All Category
 
     @GetMapping(value = "/userGetAllCategories",produces = "application/json")
-    public List<User> getAllCategories(){
+    public List<User> userGetAllCategories(){
 
         return userRepository.findAll();
     }

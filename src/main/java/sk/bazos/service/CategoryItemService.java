@@ -23,13 +23,11 @@ public class CategoryItemService {
     private CategoryItemRepository categoryItemRepository;
 
     @PostMapping(value="/postCategory")
-        public Long createCategory(@RequestParam String categoryTitle, @RequestParam String subcategoryTitle, @RequestParam MultipartFile photoData) throws IOException {
-        CategoryItem categoryItemForSave = new CategoryItem();
-        categoryItemForSave.setCategoryTitle(categoryTitle);
-        categoryItemForSave.setSubcategoryTitle(subcategoryTitle);
-        categoryItemForSave.setPhotoData(photoData.getBytes());
-        return categoryItemRepository.save(categoryItemForSave).getId();
-    }
+
+        public Long createCategory( @RequestBody CategoryItem categoryItem ) {
+        return categoryItemRepository.save(categoryItem).getId();
+        }
+
 
     // Get All Categories
     @GetMapping(value="/getAllCategories",produces = "application/json")

@@ -19,16 +19,8 @@ public class AdvertService {
     private AdvertRepository advertRepository;
 
     @PostMapping(value="/postAdvert")
-        public Long createAdvert(@RequestParam Long idu, @RequestParam String name, @RequestParam String descr, @RequestParam String category, @RequestParam String subcategory, @RequestParam Long price, @RequestParam String city) {
-        Advert advertForSave = new Advert();
-        advertForSave.setIdu(idu);
-        advertForSave.setName(name);
-        advertForSave.setDescr(descr);
-        advertForSave.setCategory(category);
-        advertForSave.setSubcategory(subcategory);
-        advertForSave.setPrice(price);
-        advertForSave.setCity(city);
-        return advertRepository.save(advertForSave).getId();
+    public Long createAdvert( @RequestBody Advert advert) {
+        return advertRepository.save(advert).getId();
     }
 
     @GetMapping(value="/allAdvert",produces = "application/json")

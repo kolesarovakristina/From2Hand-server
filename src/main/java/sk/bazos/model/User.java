@@ -12,10 +12,10 @@ public class User {
     @GeneratedValue
     private Long id;
     private String name;
-    private Long phonenumber;
+    private String phonenumber;
     private String email;
     private String password;
-    private Long token;
+    private String token;
     private String status;
     @Lob
     private byte[] photoData;
@@ -36,11 +36,11 @@ public class User {
         this.name = name;
     }
 
-    public Long getPhonenumber() {
+    public String getPhonenumber() {
         return phonenumber;
     }
 
-    public void setPhonenumber(Long phonenumber) {
+    public void setPhonenumber(String phonenumber) {
         this.phonenumber = phonenumber;
     }
 
@@ -60,11 +60,11 @@ public class User {
         this.password = password;
     }
 
-    public Long getToken() {
+    public String getToken() {
         return token;
     }
 
-    public void setToken(Long token) {
+    public void setToken(String token) {
         this.token = token;
     }
 
