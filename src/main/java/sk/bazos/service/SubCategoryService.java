@@ -45,7 +45,7 @@ import java.util.Optional;
             SubCategoryItem subCategoryToupdate = subCategoryRepository.getOne(id);
 
             subCategoryToupdate.setSubCategoryTitle(subCategoryDetails.getSubCategoryTitle());
-            subCategoryToupdate.setSubCategory(subCategoryDetails.getSubCategory());
+
 
             if(subCategoryDetails.getPhotoData()!=null){
                 subCategoryToupdate.setPhotoData(subCategoryDetails.getPhotoData());

@@ -4,26 +4,26 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import java.util.List;
 
 @Entity
 
 public class CategoryItem {
     @Id
     @GeneratedValue
-    private Long id;
+    private Long categoryId;
     private String categoryTitle;
     private String subcategoryTitle;
     @Lob
     private byte[] photoData;
 
-    public Long getId() {
-        return id;
+    public Long getCategoryId() {
+        return categoryId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
     }
-
 
     public String getCategoryTitle() {
         return categoryTitle;
@@ -48,6 +48,8 @@ public class CategoryItem {
     public void setPhotoData(byte[] photoData) {
         this.photoData = photoData;
     }
+
+
 
 
 }

@@ -25,7 +25,7 @@ public class CategoryItemService {
     @PostMapping(value="/postCategory")
 
         public Long createCategory( @RequestBody CategoryItem categoryItem ) {
-        return categoryItemRepository.save(categoryItem).getId();
+        return categoryItemRepository.save(categoryItem).getCategoryId();
         }
 
 
@@ -44,9 +44,9 @@ public class CategoryItemService {
 
     /// Update a Category
     @PutMapping("/updateCategory/{id}")
-    public CategoryItem updateCategory(@PathVariable(value = "id") Long id, @RequestBody CategoryItem categoryDetails) {
+    public CategoryItem updateCategory(@PathVariable(value = "id") Long categoryId, @RequestBody CategoryItem categoryDetails) {
 
-        CategoryItem categoryItemToupdate = categoryItemRepository.getOne(id);
+        CategoryItem categoryItemToupdate = categoryItemRepository.getOne(categoryId);
 
 
         categoryItemToupdate.setCategoryTitle(categoryDetails.getCategoryTitle());

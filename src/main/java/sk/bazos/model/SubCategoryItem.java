@@ -7,11 +7,10 @@ import java.util.List;
 
     public class SubCategoryItem {
         @Id
-        @GeneratedValue(strategy = GenerationType.AUTO)
-        @OneToMany(cascade = CascadeType.ALL)
+        @GeneratedValue
         private Long id;
+        private Long categoryId;
         private String subCategoryTitle;
-        private List<SubCategoryItem>subCategory;
         @Lob
         private byte[] photoData;
 
@@ -23,6 +22,14 @@ import java.util.List;
             this.id = id;
         }
 
+        public Long getCategoryId() {
+        return categoryId;
+    }
+
+        public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
+    }
+
         public String getSubCategoryTitle() {
         return subCategoryTitle;
     }
@@ -30,10 +37,6 @@ import java.util.List;
         public void setSubCategoryTitle(String subCategoryTitle) {
         this.subCategoryTitle = subCategoryTitle;
     }
-
-        public List<SubCategoryItem> getSubCategory(){return subCategory;}
-
-        public void setSubCategory (List<SubCategoryItem>subCategory ){this.subCategory = subCategory;}
 
         public byte[] getPhotoData() {
         return photoData;
