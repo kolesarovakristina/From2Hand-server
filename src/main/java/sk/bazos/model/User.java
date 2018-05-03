@@ -7,11 +7,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 
 @Entity
-public class User implements UserDetails{
+public class User implements UserDetails {
     @Id
     @GeneratedValue
     private Long id;
@@ -19,10 +22,13 @@ public class User implements UserDetails{
     private String password;
     private String phonenumber;
     private String email;
+    @OneToMany
+    private List<Role> roles;
+
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities(){
-       return AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_ADMIN");
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return roles;
     }
 
     @Override
@@ -62,7 +68,6 @@ public class User implements UserDetails{
     public boolean isEnabled() {
         return true;
     }
-
 
 
     public String getPhonenumber() {
