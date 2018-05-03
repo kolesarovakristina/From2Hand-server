@@ -16,13 +16,13 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/categoryItem")
-@Api(value = "categoryItem", description = "Basic crud over category item entity.")
+@Api
 public class CategoryItemService {
 
     @Autowired
     private CategoryItemRepository categoryItemRepository;
 
-    @PostMapping(value="/postCategory")
+    @PostMapping
 
         public Long createCategory( @RequestBody CategoryItem categoryItem ) {
         return categoryItemRepository.save(categoryItem).getCategoryId();
@@ -30,20 +30,20 @@ public class CategoryItemService {
 
 
     // Get All Categories
-    @GetMapping(value="/getAllCategories",produces = "application/json")
+    @GetMapping
     public List<CategoryItem> getAllCategories() {
         return categoryItemRepository.findAll();
     }
 
     // Get a Single Category
-    @GetMapping("/oneCategory/{id}")
+    @GetMapping("/{id}")
     public Optional<CategoryItem> getCategoryById(@PathVariable(value = "id") Long categoryId) {
         Optional<CategoryItem> categoryItemToupdate = categoryItemRepository.findById(categoryId);
         return categoryItemToupdate;
     }
 
     /// Update a Category
-    @PutMapping("/updateCategory/{id}")
+    @PutMapping("/{id}")
     public CategoryItem updateCategory(@PathVariable(value = "id") Long categoryId, @RequestBody CategoryItem categoryDetails) {
 
         CategoryItem categoryItemToupdate = categoryItemRepository.getOne(categoryId);
@@ -57,7 +57,7 @@ public class CategoryItemService {
         return  categoryItemRepository.save(categoryItemToupdate);
     }
     // Delete a Category
-    @DeleteMapping("/deleteCategory/{id}")
+    @DeleteMapping("/{id}")
     public void deleteCategory(@PathVariable(value = "id") Long categoryId) {
         CategoryItem categoryItem = categoryItemRepository.getOne(categoryId);
 

@@ -12,14 +12,14 @@ import java.util.Optional;
 
     @RestController
     @RequestMapping("/subCategoryItem")
-    @Api(value = "subCategoryItem", description = "Basic crud over subCategory item entity.")
+    @Api
     public class SubCategoryService {
 
 
         @Autowired
         private SubCategoryRepository subCategoryRepository;
 
-        @PostMapping(value="/postSubCategory")
+        @PostMapping
 
         public Long createSubCategory(@RequestBody SubCategoryItem subCategoryItem ) {
             return subCategoryRepository.save(subCategoryItem).getId();
@@ -27,20 +27,20 @@ import java.util.Optional;
 
 
         // Get All SubCategories
-        @GetMapping(value="/getAllSubCategories",produces = "application/json")
+        @GetMapping
         public List<SubCategoryItem> getAllSubCategories() {
             return subCategoryRepository.findAll();
         }
 
         // Get a Single SubCategory
-        @GetMapping("/oneSubCategory/{id}")
+        @GetMapping("/{id}")
         public Optional<SubCategoryItem> getSubCategoryById(@PathVariable(value = "id") Long subCategoryId) {
             Optional<SubCategoryItem> subCategoryToupdate = subCategoryRepository.findById(subCategoryId);
             return subCategoryToupdate;
         }
 
         /// Update a SubCategory
-        @PutMapping("/updateSubCategory/{id}")
+        @PutMapping("/{id}")
         public SubCategoryItem updateSubCategory(@PathVariable(value = "id") Long id, @RequestBody SubCategoryItem subCategoryDetails) {
             SubCategoryItem subCategoryToupdate = subCategoryRepository.getOne(id);
 
@@ -53,7 +53,7 @@ import java.util.Optional;
             return  subCategoryRepository.save(subCategoryToupdate);
         }
         // Delete a SubCategory
-        @DeleteMapping("/deleteSubCategory/{id}")
+        @DeleteMapping("/{id}")
         public void deleteSubCategory(@PathVariable(value = "id") Long subCategoryId) {
             SubCategoryItem subCategoryItem = subCategoryRepository.getOne(subCategoryId);
             subCategoryRepository.delete(subCategoryItem);

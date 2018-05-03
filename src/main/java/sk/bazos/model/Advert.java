@@ -12,7 +12,7 @@ public class Advert {
     @Id
     @GeneratedValue
     private Long id;
-    private Long idu;
+    private Long idUser;
     private String name;
     private String descr;
     private String category;
@@ -28,12 +28,12 @@ public class Advert {
         this.id = id;
     }
 
-    public Long getIdu() {
-        return idu;
+    public Long getIdUser() {
+        return idUser;
     }
 
-    public void setIdu(Long idu) {
-        this.idu = idu;
+    public void setIdUser(Long idUser) {
+        this.idUser = idUser;
     }
 
     public String getName() {

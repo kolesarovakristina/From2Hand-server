@@ -12,29 +12,47 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/advert")
-@Api(value = "advert", description = "advert")
+@Api
 public class AdvertService {
 
     @Autowired
     private AdvertRepository advertRepository;
 
-    @PostMapping(value="/postAdvert")
+    @PostMapping
     public Long createAdvert( @RequestBody Advert advert) {
         return advertRepository.save(advert).getId();
     }
 
-    @GetMapping(value="/allAdvert",produces = "application/json")
+    @GetMapping
     public List<Advert> getAllAdvert() {
         return advertRepository.findAll();
     }
 
-    @GetMapping("/oneAdvert/{id}")
+    @GetMapping("/{id}")
     public Optional<Advert> getAdvertById(@PathVariable(value = "id") Long id) {
         Optional<Advert> advertToupdate = advertRepository.findById(id);
         return advertToupdate;
     }
 
-    @DeleteMapping("/deleteAdveert/{id}")
+    /// Update a Category
+    @PutMapping("/{id}")
+    public Advert updateAdvert(@PathVariable(value = "id") Long id, @RequestBody Advert advertDetails) {
+
+        Advert advertItemToupdate = advertRepository.getOne(id);
+
+
+        advertItemToupdate.setName(advertDetails.getName());
+        advertItemToupdate.setDescr(advertDetails.getDescr());
+        advertItemToupdate.setCategory(advertDetails.getCategory());
+        advertItemToupdate.setSubcategory(advertDetails.getSubcategory());
+        advertItemToupdate.setPrice(advertDetails.getPrice());
+        advertItemToupdate.setCity(advertDetails.getCity());
+
+        return  advertRepository.save(advertItemToupdate);
+    }
+
+
+    @DeleteMapping("/{id}")
     public void deleteCategory(@PathVariable(value = "id") Long id) {
         Advert advert = advertRepository.getOne(id);
 
