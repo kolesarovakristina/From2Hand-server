@@ -1,14 +1,11 @@
 package sk.bazos.model;
 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import java.util.Arrays;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -18,13 +15,18 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue
     private Long id;
+    @NotNull
     private String username;
+    @NotNull
     private String password;
     private String phonenumber;
     private String email;
-    @OneToMany
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Role> roles;
 
+    public Long getId() {
+        return id;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -33,7 +35,7 @@ public class User implements UserDetails {
 
     @Override
     public String getPassword() {
-        return null;
+        return password;
     }
 
     public void setPassword(String password) {
@@ -42,7 +44,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return null;
+        return username;
     }
 
     public void setUsername(String username) {
@@ -69,6 +71,12 @@ public class User implements UserDetails {
         return true;
     }
 
+    public void setRole(Role role) {
+        if (roles == null) {
+            roles = new ArrayList<>();
+        }
+        roles.add(role);
+    }
 
     public String getPhonenumber() {
         return phonenumber;

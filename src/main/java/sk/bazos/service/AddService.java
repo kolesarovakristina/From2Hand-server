@@ -2,6 +2,7 @@ package sk.bazos.service;
 
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import sk.bazos.model.Add;
 import sk.bazos.repository.AddRepository;
@@ -27,6 +28,7 @@ public class AddService {
         return addRepository.save(add).getId();
     }
 
+    @Secured("ROLE_ADMIN")
     @GetMapping(produces = "application/json")
     public List<Add> getAdds() {
         return addRepository.findAll();
