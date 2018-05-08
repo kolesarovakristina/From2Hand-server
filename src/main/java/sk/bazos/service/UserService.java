@@ -2,6 +2,9 @@ package sk.bazos.service;
 
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -10,13 +13,16 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import sk.bazos.model.User;
 import sk.bazos.repository.UserRepository;
+import sk.bazos.security.JwtTokenProvider;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 
 @RestController
 @RequestMapping("/user")
 @Api
+@Transactional(readOnly = true)
 public class UserService implements UserDetailsService {
 
     @Autowired
@@ -25,10 +31,43 @@ public class UserService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private JwtTokenProvider jwtTokenProvider;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @PostMapping("login")
+    public String login(@RequestParam("username") String username, @RequestParam("password") String password) {
+        try {
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+            return jwtTokenProvider.createToken(username, userRepository.findByUsername(username).getRoles());
+        } catch (AuthenticationException e) {
+            throw new SecurityException("Invalid username/password supplied");
+        }
+    }
+
+    @GetMapping("/profile")
+    public User getUserProfile(HttpServletRequest req) {
+        return userRepository.findByUsername(jwtTokenProvider.getUsername(jwtTokenProvider.resolveToken(req)));
+    }
+
     @PostMapping
+    @Transactional
     public Long createUser(@Valid @RequestBody(required = true) User user) {
         final String password = user.getPassword();
         user.setPassword(encoder.encode(password));
+        user.withRole("ROLE_USER");
+        return userRepository.save(user).getId();
+    }
+
+    @PostMapping("admin")
+//    @Secured("ROLE_ADMIN")
+    @Transactional
+    public Long createAdmin(@Valid @RequestBody(required = true) User user) {
+        final String password = user.getPassword();
+        user.setPassword(encoder.encode(password));
+        user.withRole("ROLE_ADMIN");
         return userRepository.save(user).getId();
     }
 
@@ -38,7 +77,6 @@ public class UserService implements UserDetailsService {
     }
 
     @Override
-    @Transactional
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         final User byUsername = userRepository.findByUsername(s);
         if (byUsername == null) {

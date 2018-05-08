@@ -1,5 +1,7 @@
 package sk.bazos.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -29,15 +31,23 @@ public class User implements UserDetails {
     }
 
     @Override
+    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;
     }
 
+    @JsonIgnore
+    public List<Role> getRoles() {
+        return roles;
+    }
+
     @Override
+    @JsonIgnore
     public String getPassword() {
         return password;
     }
 
+    @JsonSetter
     public void setPassword(String password) {
         this.password = password;
     }
@@ -52,29 +62,44 @@ public class User implements UserDetails {
     }
 
     @Override
+    @JsonIgnore
     public boolean isAccountNonExpired() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isAccountNonLocked() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isEnabled() {
         return true;
     }
 
+    @JsonIgnore
     public void setRole(Role role) {
         if (roles == null) {
             roles = new ArrayList<>();
         }
+        roles.add(role);
+    }
+
+    @JsonIgnore
+    public void withRole(String strRole) {
+        if (roles == null) {
+            roles = new ArrayList<>();
+        }
+        Role role = new Role();
+        role.setAuthority(strRole);
         roles.add(role);
     }
 
