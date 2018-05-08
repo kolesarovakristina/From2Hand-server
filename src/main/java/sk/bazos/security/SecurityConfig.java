@@ -22,9 +22,6 @@ import sk.bazos.security.JwtTokenProvider;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private UserDetailsService userService;
-
-    @Autowired
     private JwtTokenProvider jwtTokenProvider;
 
     @Bean
