@@ -48,9 +48,9 @@ public class CategoryService {
         Category categoryToupdate = categoryRepository.getOne(id);
 
         categoryToupdate.setTitle(categoryDetails.getTitle());
-        if(categoryDetails.getPhotoData()!=null){
-            categoryToupdate.setPhotoData(categoryDetails.getPhotoData());
-        }
+        //if(categoryDetails.getPhotos()!=null){
+            //categoryToupdate.setPhotos(categoryDetails.getPhotos());
+       // }
         return  categoryRepository.save(categoryToupdate);
     }
 

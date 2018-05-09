@@ -13,9 +13,7 @@ public class Category implements Serializable {
     @GeneratedValue
     private Long id;
     private String title;
-    @Lob
-    private byte[] photoData;
-
+    //private List<Photo>photos;
 
     @ManyToOne
     @JsonIgnore
@@ -40,18 +38,11 @@ public class Category implements Serializable {
         this.title = title;
     }
 
-    public byte[] getPhotoData() {
-        return photoData;
-    }
+    //public List<Photo> getPhotos(){return photos;}
 
-    public void setPhotoData(byte[] photoData) {
-        this.photoData = photoData;
-    }
+    //public void setPhotos (List<Photo> photos){this.photos=photos;}
 
-
-    public Category getParent() {
-        return parent;
-    }
+    public Category getParent() {return parent;}
 
     public void setParent(Category parent) {
         this.parent = parent;
