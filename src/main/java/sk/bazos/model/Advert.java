@@ -15,6 +15,8 @@ public class Advert {
     private Long idUser;
     private String name;
     private String descr;
+
+    //Preco zas id-cka a ked uz, preco oni nedefinuju mapping? kde je vazba medzi kategoriu a advertom a preco tu mam aj kategoriu, aj subkategoriu?
     private Long categoryId;
     private Long subcategoryId;
     private Long price;
