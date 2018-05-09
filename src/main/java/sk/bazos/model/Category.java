@@ -13,7 +13,7 @@ public class Category implements Serializable {
     @GeneratedValue
     private Long id;
     private String title;
-    @Lob
+    @Lob //ZLE, to, co ti tam Kristina nacrtla bolo dobre, akurat stacilo definovat vazbu lazy load
     private byte[] photoData;
 
     @ManyToOne
