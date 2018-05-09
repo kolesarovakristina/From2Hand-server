@@ -15,8 +15,8 @@ public class Advert {
     private Long idUser;
     private String name;
     private String descr;
-    private String category;
-    private String subcategory;
+    private Long categoryId;
+    private Long subcategoryId;
     private Long price;
     private String city;
 
@@ -52,22 +52,6 @@ public class Advert {
         this.descr = descr;
     }
 
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public String getSubcategory() {
-        return subcategory;
-    }
-
-    public void setSubcategory(String subcategory) {
-        this.subcategory = subcategory;
-    }
-
     public Long getPrice() {
         return price;
     }
@@ -82,5 +66,21 @@ public class Advert {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public Long getSubcategoryId() {
+        return subcategoryId;
+    }
+
+    public void setSubcategoryId(Long subcategoryId) {
+        this.subcategoryId = subcategoryId;
     }
 }

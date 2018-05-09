@@ -3,9 +3,13 @@ package sk.bazos.service;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import sk.bazos.model.Category;
+import sk.bazos.model.Photo;
 import sk.bazos.repository.CategoryRepository;
 
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,8 +22,13 @@ public class CategoryService {
     private CategoryRepository categoryRepository;
 
     @PostMapping
-    public Long addCategory(@RequestBody(required = true) Category category) {
-        return categoryRepository.save(category).getId();
+    public Long addCategory(@RequestParam(required = true) String title, @RequestParam MultipartFile photo) throws IOException {
+        Category category1 = new Category();
+        category1.setTitle(title);
+        if (photo != null) {
+            category1.setPhotoData(photo.getBytes());
+        }
+        return categoryRepository.save(category1).getId();
     }
 
     @GetMapping

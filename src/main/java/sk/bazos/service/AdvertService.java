@@ -43,8 +43,8 @@ public class AdvertService {
 
         advertItemToupdate.setName(advertDetails.getName());
         advertItemToupdate.setDescr(advertDetails.getDescr());
-        advertItemToupdate.setCategory(advertDetails.getCategory());
-        advertItemToupdate.setSubcategory(advertDetails.getSubcategory());
+        advertItemToupdate.setCategoryId(advertDetails.getCategoryId());
+        advertItemToupdate.setSubcategoryId(advertDetails.getSubcategoryId());
         advertItemToupdate.setPrice(advertDetails.getPrice());
         advertItemToupdate.setCity(advertDetails.getCity());
 
