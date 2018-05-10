@@ -18,6 +18,7 @@ import java.util.Optional;
 public class AdvertService {
 
 
+
     @PersistenceContext
     private EntityManager entityManager;
     @Autowired
@@ -38,7 +39,6 @@ public class AdvertService {
         Optional<Advert> advertToupdate = advertRepository.findById(id);
         return advertToupdate;
     }
-
     /// Update a Category
     @PutMapping("/{id}")
     public Advert updateAdvert(@PathVariable(value = "id") Long id, @RequestBody Advert advert) {
@@ -60,10 +60,12 @@ public class AdvertService {
     @DeleteMapping("/{id}")
     public void deleteCategory(@PathVariable(value = "id") Long id) {
         Advert advert = advertRepository.getOne(id);
-
         advertRepository.delete(advert);
+    }
 
 
+    public List<Advert> getByCategory(Long categoryId){
+        return advertRepository.findAdvertsByCategory_Id(categoryId);
     }
 
 }

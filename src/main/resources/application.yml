@@ -4,8 +4,13 @@ spring:
     jpa:
         hibernate:
             ddl-auto: create-drop
+    h2:
+      console:
+        enabled: true
+        path: /h2-console
 security:
   jwt:
     token:
       secret-key: secret-key
       expire-length: 3600000
+

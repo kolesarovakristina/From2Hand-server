@@ -23,7 +23,7 @@ public class User implements UserDetails {
     private String password;
     private String phonenumber;
     private String email;
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER) //TODO update cez @jointable
     private List<Role> roles;
 
     public Long getId() {

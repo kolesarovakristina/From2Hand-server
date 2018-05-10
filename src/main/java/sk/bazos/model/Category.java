@@ -20,7 +20,7 @@ public class Category implements Serializable {
     @JsonIgnore
     private Category parent;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY) //todo bud pouzit jointable
     private List<Category> subcategories = new ArrayList<>();
 
     public Long getId() {

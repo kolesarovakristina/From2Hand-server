@@ -7,7 +7,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity
-
 public class Advert {
 
     @Id
@@ -17,6 +16,7 @@ public class Advert {
     private User user;
     private String name;
     private String descr;
+    @ManyToOne
     private Category category;
     private Long price;
     private String city;
