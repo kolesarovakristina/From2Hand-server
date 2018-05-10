@@ -13,8 +13,8 @@ public class Category implements Serializable {
     @GeneratedValue
     private Long id;
     private String title;
-    @Lob //ZLE, to, co ti tam Kristina nacrtla bolo dobre, akurat stacilo definovat vazbu lazy load
-    private byte[] photoData;
+    @OneToOne
+    private Photo photo;
 
     @ManyToOne
     @JsonIgnore
@@ -54,12 +54,16 @@ public class Category implements Serializable {
         subcategory.setParent(this);
     }
 
-    public byte[] getPhotoData() {
-        return photoData;
+    public void setSubcategories(List<Category> subcategories) {
+        this.subcategories = subcategories;
     }
 
-    public void setPhotoData(byte[] photoData) {
-        this.photoData = photoData;
+    public Photo getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(Photo photo) {
+        this.photo = photo;
     }
 }
 

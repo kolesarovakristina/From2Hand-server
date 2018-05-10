@@ -4,6 +4,7 @@ package sk.bazos.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 
@@ -12,13 +13,11 @@ public class Advert {
     @Id
     @GeneratedValue
     private Long id;
-    private Long idUser;
+    @ManyToOne
+    private User user;
     private String name;
     private String descr;
-
-    //Preco zas id-cka a ked uz, preco oni nedefinuju mapping? kde je vazba medzi kategoriu a advertom a preco tu mam aj kategoriu, aj subkategoriu?
-    private Long categoryId;
-    private Long subcategoryId;
+    private Category category;
     private Long price;
     private String city;
 
@@ -30,12 +29,12 @@ public class Advert {
         this.id = id;
     }
 
-    public Long getIdUser() {
-        return idUser;
+    public User getUser() {
+        return user;
     }
 
-    public void setIdUser(Long idUser) {
-        this.idUser = idUser;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getName() {
@@ -70,19 +69,11 @@ public class Advert {
         this.city = city;
     }
 
-    public Long getCategoryId() {
-        return categoryId;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setCategoryId(Long categoryId) {
-        this.categoryId = categoryId;
-    }
-
-    public Long getSubcategoryId() {
-        return subcategoryId;
-    }
-
-    public void setSubcategoryId(Long subcategoryId) {
-        this.subcategoryId = subcategoryId;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }

@@ -9,7 +9,6 @@ import sk.bazos.model.Photo;
 import sk.bazos.repository.CategoryRepository;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,12 +22,14 @@ public class CategoryService {
 
     @PostMapping
     public Long addCategory(@RequestParam(required = true) String title, @RequestParam MultipartFile photo) throws IOException {
-        Category category1 = new Category();
-        category1.setTitle(title);
+        Category category = new Category();
+        category.setTitle(title);
         if (photo != null) {
-            category1.setPhotoData(photo.getBytes());
+            Photo photoData = new Photo();
+            photoData.setData(photo.getBytes());
+            category.setPhoto(photoData);
         }
-        return categoryRepository.save(category1).getId();
+        return categoryRepository.save(category).getId();
     }
 
     @GetMapping
@@ -58,9 +59,9 @@ public class CategoryService {
 
         categoryToupdate.setTitle(categoryDetails.getTitle());
         //if(categoryDetails.getPhotos()!=null){
-            //categoryToupdate.setPhotos(categoryDetails.getPhotos());
-       // }
-        return  categoryRepository.save(categoryToupdate);
+        //categoryToupdate.setPhotos(categoryDetails.getPhotos());
+        // }
+        return categoryRepository.save(categoryToupdate);
     }
 
     @DeleteMapping("/{id}")

@@ -4,9 +4,11 @@ import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import sk.bazos.model.Advert;
-
+import sk.bazos.model.Category;
 import sk.bazos.repository.AdvertRepository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,11 +17,14 @@ import java.util.Optional;
 @Api
 public class AdvertService {
 
+
+    @PersistenceContext
+    private EntityManager entityManager;
     @Autowired
     private AdvertRepository advertRepository;
 
     @PostMapping
-    public Long createAdvert( @RequestBody Advert advert) {
+    public Long createAdvert(@RequestBody Advert advert) {
         return advertRepository.save(advert).getId();
     }
 
@@ -36,19 +41,19 @@ public class AdvertService {
 
     /// Update a Category
     @PutMapping("/{id}")
-    public Advert updateAdvert(@PathVariable(value = "id") Long id, @RequestBody Advert advertDetails) {
+    public Advert updateAdvert(@PathVariable(value = "id") Long id, @RequestBody Advert advert) {
 
         Advert advertItemToupdate = advertRepository.getOne(id);
+        advertItemToupdate.setName(advert.getName());
+        advertItemToupdate.setDescr(advert.getDescr());
+        if (advert.getCategory() != null && advert.getCategory().getId() != null) {
+            final Category category = entityManager.getReference(Category.class, advert.getCategory().getId());
+            advertItemToupdate.setCategory(category);
+        }
+        advertItemToupdate.setPrice(advert.getPrice());
+        advertItemToupdate.setCity(advert.getCity());
 
-
-        advertItemToupdate.setName(advertDetails.getName());
-        advertItemToupdate.setDescr(advertDetails.getDescr());
-        advertItemToupdate.setCategoryId(advertDetails.getCategoryId());
-        advertItemToupdate.setSubcategoryId(advertDetails.getSubcategoryId());
-        advertItemToupdate.setPrice(advertDetails.getPrice());
-        advertItemToupdate.setCity(advertDetails.getCity());
-
-        return  advertRepository.save(advertItemToupdate);
+        return advertRepository.save(advertItemToupdate);
     }
 
 
