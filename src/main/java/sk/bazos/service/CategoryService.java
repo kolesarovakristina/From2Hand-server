@@ -8,6 +8,8 @@ import sk.bazos.model.Category;
 import sk.bazos.model.Photo;
 import sk.bazos.repository.CategoryRepository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +21,9 @@ public class CategoryService {
 
     @Autowired
     private CategoryRepository categoryRepository;
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @PostMapping
     public Long addCategory(@RequestParam(required = true) String title, @RequestParam MultipartFile photo) throws IOException {
@@ -58,9 +63,10 @@ public class CategoryService {
         Category categoryToupdate = categoryRepository.getOne(id);
 
         categoryToupdate.setTitle(categoryDetails.getTitle());
-        //if(categoryDetails.getPhotos()!=null){
-        //categoryToupdate.setPhotos(categoryDetails.getPhotos());
-        // }
+        if (categoryDetails.getPhoto() != null && categoryDetails.getPhoto().getId() != null) {
+            final Photo photo = entityManager.getReference(Photo.class, categoryDetails.getPhoto().getId());
+            categoryToupdate.setPhoto(photo);
+        }
         return categoryRepository.save(categoryToupdate);
     }
 
