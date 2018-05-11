@@ -1,9 +1,10 @@
 package sk.bazos.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity(name="photo")
-public class Photo {
+public class Photo implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
