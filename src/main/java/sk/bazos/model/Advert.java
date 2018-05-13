@@ -1,22 +1,25 @@
 package sk.bazos.model;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 
 @Entity
+@NamedQuery(name = "findByCategoryId",
+        query = "SELECT a from Advert a join fetch a.category c join fetch c.parent cp where c.id=:categoryId or cp.id=:categoryId")
 public class Advert {
 
     @Id
     @GeneratedValue
     private Long id;
     @ManyToOne
+    @JsonIgnore
     private User user;
     private String name;
     private String descr;
     @ManyToOne
+    @JsonIgnore
     private Category category;
     private Long price;
     private String city;

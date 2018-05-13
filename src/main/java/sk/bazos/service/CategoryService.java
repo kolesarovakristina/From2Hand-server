@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 import sk.bazos.model.Category;
 import sk.bazos.model.Photo;
 import sk.bazos.repository.CategoryRepository;
+import sk.bazos.service.exception.ServiceException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -26,13 +27,18 @@ public class CategoryService {
     private EntityManager entityManager;
 
     @PostMapping
-    public Long addCategory(@RequestParam(required = true) String title, @RequestParam MultipartFile photo) throws IOException {
+    public Long addCategory(@RequestParam(required = true) String title, @RequestParam(required = false) MultipartFile photo) {
         Category category = new Category();
         category.setTitle(title);
+
         if (photo != null) {
-            Photo photoData = new Photo();
-            photoData.setData(photo.getBytes());
-            category.setPhoto(photoData);
+            try {
+                Photo photoData = new Photo();
+                photoData.setData(photo.getBytes());
+                category.setPhoto(photoData);
+            } catch (IOException e) {
+                throw new ServiceException("Something terrible happens with photo data", e);
+            }
         }
         return categoryRepository.save(category).getId();
     }

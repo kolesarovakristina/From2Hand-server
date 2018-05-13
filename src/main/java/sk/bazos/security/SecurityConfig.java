@@ -38,6 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .apply(new JwtTokenFilterConfigurer(jwtTokenProvider))
+                .and().headers().frameOptions().disable()
                 .and()
                 .csrf().disable();
     }

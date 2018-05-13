@@ -1,6 +1,7 @@
 spring:
     datasource:
-        url: jdbc:h2:~/bavaria;DB_CLOSE_ON_EXIT=FALSE
+        url: jdbc:h2:~/bazos;DB_CLOSE_ON_EXIT=FALSE
+        username: sa
     jpa:
         hibernate:
             ddl-auto: create-drop
@@ -8,6 +9,7 @@ spring:
       console:
         enabled: true
         path: /h2-console
+
 security:
   jwt:
     token:
