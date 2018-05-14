@@ -15,4 +15,6 @@ security:
     token:
       secret-key: secret-key
       expire-length: 3600000
+server:
+  port: 8080
 
