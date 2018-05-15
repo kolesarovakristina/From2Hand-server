@@ -6,8 +6,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 
 @Entity
-@NamedQuery(name = "findByCategoryId",
-        query = "SELECT a from Advert a join fetch a.category c join fetch c.parent cp where c.id=:categoryId or cp.id=:categoryId")
+@NamedQueries({
+        @NamedQuery(name = "findByCategoryId", query = "SELECT a from Advert a join fetch a.category c join fetch c.parent cp where c.id=:categoryId or cp.id=:categoryId"),
+        @NamedQuery(name = "findByUserId", query = "SELECT a from Advert a join fetch a.user u where u.id=:userId")
+})
 public class Advert {
 
     @Id
