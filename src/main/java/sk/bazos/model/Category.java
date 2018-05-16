@@ -13,7 +13,7 @@ public class Category implements Serializable {
     @GeneratedValue
     private Long id;
     private String title;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Photo photo;
 
     @ManyToOne
@@ -22,6 +22,9 @@ public class Category implements Serializable {
 
     @OneToMany(fetch = FetchType.LAZY) //todo bud pouzit jointable
     private List<Category> subcategories = new ArrayList<>();
+
+    @OneToMany(mappedBy = "category")
+    private List<Advert> adverts;
 
     public Long getId() {
         return id;
@@ -52,6 +55,14 @@ public class Category implements Serializable {
     public void addSubcategory(Category subcategory) {
         subcategories.add(subcategory);
         subcategory.setParent(this);
+    }
+
+    public List<Advert> getAdverts() {
+        return adverts;
+    }
+
+    public void setAdverts(List<Advert> adverts) {
+        this.adverts = adverts;
     }
 
     public void setSubcategories(List<Category> subcategories) {

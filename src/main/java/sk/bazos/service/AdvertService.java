@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.*;
 import sk.bazos.model.Advert;
 import sk.bazos.model.Category;
 import sk.bazos.repository.AdvertRepository;
+import sk.bazos.service.util.AdvertUtil;
+import sk.bazos.to.AdvertCreateDto;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -23,8 +25,15 @@ public class AdvertService {
     @Autowired
     private AdvertRepository advertRepository;
 
+
     @PostMapping
-    public Long createAdvert(@RequestBody Advert advert) {
+    public Long createAdvert(@RequestBody AdvertCreateDto advertCreateDto) {
+        Advert advert = AdvertUtil.fromCreate(advertCreateDto);
+        if (advertCreateDto.getCategoryId() != null) {
+            Category category = entityManager.getReference(Category.class, advertCreateDto.getCategoryId());
+            advert.setCategory(category);
+        }
+        //todo user by security context
         return advertRepository.save(advert).getId();
     }
 
@@ -38,10 +47,9 @@ public class AdvertService {
         Optional<Advert> advertToupdate = advertRepository.findById(id);
         return advertToupdate;
     }
-    /// Update a Category
+
     @PutMapping("/{id}")
     public Advert updateAdvert(@PathVariable(value = "id") Long id, @RequestBody Advert advert) {
-
         Advert advertItemToupdate = advertRepository.getOne(id);
         advertItemToupdate.setName(advert.getName());
         advertItemToupdate.setDescr(advert.getDescr());
@@ -57,14 +65,14 @@ public class AdvertService {
 
 
     @DeleteMapping("/{id}")
-    public void deleteCategory(@PathVariable(value = "id") Long id) {
+    public void deleteAdvert(@PathVariable(value = "id") Long id) {
         Advert advert = advertRepository.getOne(id);
         advertRepository.delete(advert);
     }
 
-
-    public List<Advert> getByCategory(Long categoryId){
-        return advertRepository.findAdvertsByCategory_Id(categoryId);
+    @GetMapping("/category/{id}")
+    public List<Advert> getByCategory(@PathVariable(value = "id") Long categoryId) {
+        return advertRepository.findByCategoryId(categoryId);
     }
 
 }
