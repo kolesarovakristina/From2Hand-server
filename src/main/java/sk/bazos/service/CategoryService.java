@@ -38,7 +38,7 @@ public class CategoryService {
 
     @GetMapping("/{id}")
     public Category getCategoryById(@PathVariable("id") Long id) {
-        Optional<Category> byId = categoryRepository.findById(id);
+            Optional<Category> byId = categoryRepository.findById(id);
         return byId.orElse(null);
     }
 
