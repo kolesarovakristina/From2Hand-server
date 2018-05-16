@@ -78,6 +78,10 @@ public class AdvertService {
     public List<Advert> getByUser(@PathVariable(value = "id") Long userId) {
         return advertRepository.findAdvertsByUser_Id(userId);
     }
+    @GetMapping("/city/{city}")
+    public List<Advert> getByUser(@PathVariable(value = "city") String city) {
+        return advertRepository.findAdvertsByCityIsLike(city);
+    }
 
 
 
