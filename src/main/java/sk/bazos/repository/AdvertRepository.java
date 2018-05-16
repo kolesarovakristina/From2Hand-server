@@ -13,4 +13,6 @@ import java.util.List;
 public interface AdvertRepository extends JpaRepository<Advert, Long> {
 
     List<Advert> findByCategoryId(@Param("categoryId") Long categoryId);
+
+    List<Advert>findAdvertsByUser_Id(@Param("userId")Long userId);
 }

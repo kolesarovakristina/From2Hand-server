@@ -74,5 +74,11 @@ public class AdvertService {
     public List<Advert> getByCategory(@PathVariable(value = "id") Long categoryId) {
         return advertRepository.findByCategoryId(categoryId);
     }
+    @GetMapping("/user/{id}")
+    public List<Advert> getByUser(@PathVariable(value = "id") Long userId) {
+        return advertRepository.findAdvertsByUser_Id(userId);
+    }
+
+
 
 }

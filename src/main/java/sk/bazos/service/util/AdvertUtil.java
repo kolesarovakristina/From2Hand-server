@@ -15,6 +15,7 @@ public final class AdvertUtil {
         advert.setDescr(advertCreateDto.getDescr());
         advert.setName(advertCreateDto.getName());
         advert.setPrice(advertCreateDto.getPrice());
+        advert.setUser(advertCreateDto.getUser());
         return advert;
     }
 }
