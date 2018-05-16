@@ -18,7 +18,6 @@ import java.util.Optional;
 public class AdvertService {
 
 
-
     @PersistenceContext
     private EntityManager entityManager;
     @Autowired

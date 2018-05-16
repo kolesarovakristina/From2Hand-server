@@ -3,6 +3,7 @@ package sk.bazos.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import sk.bazos.model.Advert;
 import sk.bazos.model.Category;
+import sk.bazos.model.User;
 
 import java.util.List;
 
