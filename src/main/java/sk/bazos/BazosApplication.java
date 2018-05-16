@@ -8,7 +8,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 @SpringBootApplication
 public class BazosApplication {
 
-   // public static void main(String[] args) {
+   public static void main(String[] args) {
         SpringApplication.run(BazosApplication.class, args);
     }
 
