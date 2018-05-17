@@ -11,15 +11,6 @@ public class AdvertCreateDto implements Serializable{
     private Long categoryId;
     private Long price;
     private String city;
-    private User user;
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 
     public String getName() {
         return name;
