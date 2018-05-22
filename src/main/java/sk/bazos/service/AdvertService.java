@@ -12,6 +12,7 @@ import sk.bazos.repository.AdvertRepository;
 import sk.bazos.repository.UserRepository;
 import sk.bazos.service.util.AdvertUtil;
 import sk.bazos.to.AdvertCreateDto;
+import sk.bazos.to.AdvertFindDto;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -25,6 +26,7 @@ public class AdvertService {
 
     @PersistenceContext
     private EntityManager entityManager;
+
     @Autowired
     private AdvertRepository advertRepository;
 
@@ -39,8 +41,7 @@ public class AdvertService {
         User user= (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User reference = entityManager.getReference(User.class, user.getId());
         advert.setUser(reference);
-        //todo user by security context
-        return advertRepository.save(advert).getId();
+                return advertRepository.save(advert).getId();
     }
 
     @GetMapping
