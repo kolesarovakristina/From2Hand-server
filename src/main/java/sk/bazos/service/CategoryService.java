@@ -25,11 +25,12 @@ public class CategoryService {
     @PersistenceContext
     private EntityManager entityManager;
 
-    @PostMapping
-    public Long addCategory(@RequestBody(required = true) CategoryCreateDto categoryCreateDto) {
+    @PostMapping(consumes = "multipart/*")
+    public Long addCategory(@ModelAttribute CategoryCreateDto categoryCreateDto) {
         Category category = CategoryUtil.fromCreate(categoryCreateDto);
         return categoryRepository.save(category).getId();
     }
+
 
     @GetMapping
     public List<Category> getAllCategories() {

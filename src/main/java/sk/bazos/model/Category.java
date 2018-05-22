@@ -13,7 +13,7 @@ public class Category implements Serializable {
     @GeneratedValue
     private Long id;
     private String title;
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Photo photo;
 
     @ManyToOne

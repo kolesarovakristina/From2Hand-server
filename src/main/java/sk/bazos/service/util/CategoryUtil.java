@@ -8,9 +8,7 @@ import sk.bazos.to.CategoryCreateDto;
 
 import java.io.IOException;
 
-/**
- * Created by martin.cuchran on 5/14/2018.
- */
+
 public final class CategoryUtil {
     private CategoryUtil() {
     }
