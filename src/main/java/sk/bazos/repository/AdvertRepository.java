@@ -16,13 +16,16 @@ public interface AdvertRepository extends JpaRepository<Advert, Long> {
 
     List<Advert>findByCategoryId(@Param("categoryId") Long categoryId);
 
-    List<Advert>findAdvertsByUser_Id(@Param("userId")Long userId);
+    List<Advert>findAdvertsByUser_Id(@Param("id") User id);
 
     List<Advert>findAdvertsByCityIsLike(@Param("city")String city);
 
     List<Advert>findAdvertsByNameContaining(@Param("text")String text);
 
+    List<Advert> findAdvertsByUser_Id(Long id);
+
     //List<Advert>findAdvertsByNameContainingAndCityIsLikeAndAndCategory_Id(@Param(AdvertFindDto));
+
 
 
 }
