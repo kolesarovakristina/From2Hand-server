@@ -27,6 +27,7 @@ public final class AdvertUtil {
     }
     public static Advert fromCreate(AdvertCreateDto advertCreateDto) {
         Advert advert = new Advert();
+        advert.setDistrict(advertCreateDto.getDistrict());
         advert.setCityDistrict(advertCreateDto.getCityDistrict());
         advert.setDescr(advertCreateDto.getDescr());
         advert.setName(advertCreateDto.getName());

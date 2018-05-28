@@ -11,6 +11,7 @@ import sk.bazos.model.User;
 import sk.bazos.repository.AdvertRepository;
 import sk.bazos.service.util.AdvertUtil;
 import sk.bazos.to.AdvertCreateDto;
+import sk.bazos.to.AdvertFindDto;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -42,12 +43,16 @@ public class AdvertService {
                 return advertRepository.save(advert).getId();
     }
 
+    //@PostMapping
+    //@Secured("ROLE_USER")
+    //public List<Advert> findAdvert(@RequestBody AdvertFindDto advertFindDto) {
+  //      return advertRepository.findAdvertsByCategorySubcategoriesOrderById(advertFindDto);
+    //}
+
     @GetMapping("/all")
     public List<Advert> getAllAdvert() {
         return advertRepository.findAll();
     }
-
-
 
 
     @GetMapping
@@ -91,10 +96,6 @@ public class AdvertService {
         return advertRepository.findAdvertsByCategorySubcategoriesOrderById(SubcategoryId);
     }
 
-    @GetMapping("/subcategory/{id}")
-    public List<Advert> getByCategory(@PathVariable(value = "id") Long categoryId) {
-        return advertRepository.findAdvertsByUser_Id(categoryId);
-    }
 
     @GetMapping("/city/{city}")
     public List<Advert> getByCity(@PathVariable(value = "city") String cityDistrict) {

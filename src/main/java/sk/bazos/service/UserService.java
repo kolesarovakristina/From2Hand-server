@@ -75,10 +75,13 @@ public class UserService implements UserDetailsService {
     @PostMapping
     @Transactional
     public Long createUser(@Valid @RequestBody(required = true) User user) {
-        final String password = user.getPassword();
-        user.setPassword(encoder.encode(password));
-        user.withRole("ROLE_USER");
-        return userRepository.save(user).getId();
+        if(userRepository.findByUsername(user.getUsername()) == null ){
+            final String password = user.getPassword();
+            user.setPassword(encoder.encode(password));
+            user.withRole("ROLE_USER");
+            return userRepository.save(user).getId();
+        }
+        throw new RuntimeException("error");
     }
 
     @PostMapping("admin")

@@ -26,8 +26,7 @@ public interface AdvertRepository extends JpaRepository<Advert, Long> {
 
     List<Advert> findAdvertsByCategorySubcategoriesOrderById(Long id);
 
-    //List<Advert>findAdvertsByNameContainingAndCityIsLikeAndAndCategory_Id(@Param(AdvertFindDto));
+    //List<Advert> findAdvertsByCategoryAndCityDistrictLike(AdvertFindDto advertFindDto);
 
-
-
+    //List<Advert> findAdvertsByCategorySubcategoriesOrderById(AdvertFindDto advertFindDto);
 }
