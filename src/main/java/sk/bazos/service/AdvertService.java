@@ -28,12 +28,12 @@ public class AdvertService {
     @Autowired
     private AdvertRepository advertRepository;
 
-    @PostMapping
+    @PostMapping(consumes = "multipart/*")
     @Secured("ROLE_USER")
-    public Long createAdvert(@RequestBody AdvertCreateDto advertCreateDto) {
+    public Long createAdvert(@ModelAttribute AdvertCreateDto advertCreateDto) {
         Advert advert = AdvertUtil.fromCreate(advertCreateDto);
-        if (advertCreateDto.getCategoryId() != null) {
-            Category category = entityManager.getReference(Category.class, advertCreateDto.getCategoryId());
+        if (advertCreateDto.getCategory() != null) {
+            Category category = entityManager.getReference(Category.class, advertCreateDto.getCategory());
             advert.setCategory(category);
         }
         User user= (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -46,6 +46,9 @@ public class AdvertService {
     public List<Advert> getAllAdvert() {
         return advertRepository.findAll();
     }
+
+
+
 
     @GetMapping
     public List<Advert> getAllUserAdvert() {
@@ -60,6 +63,7 @@ public class AdvertService {
         return advertToupdate;
     }
 
+
     @PutMapping("/{id}")
     public Advert updateAdvert(@PathVariable(value = "id") Long id, @RequestBody Advert advert) {
         Advert advertItemToupdate = advertRepository.getOne(id);
@@ -70,7 +74,7 @@ public class AdvertService {
             advertItemToupdate.setCategory(category);
         }
         advertItemToupdate.setPrice(advert.getPrice());
-        advertItemToupdate.setCity(advert.getCity());
+        advertItemToupdate.setCityDistrict(advert.getCityDistrict());
 
         return advertRepository.save(advertItemToupdate);
     }
@@ -83,13 +87,18 @@ public class AdvertService {
     }
 
     @GetMapping("/category/{id}")
+    public List<Advert> getBySubCategory(@PathVariable(value = "id") Long SubcategoryId) {
+        return advertRepository.findAdvertsByCategorySubcategoriesOrderById(SubcategoryId);
+    }
+
+    @GetMapping("/subcategory/{id}")
     public List<Advert> getByCategory(@PathVariable(value = "id") Long categoryId) {
-        return advertRepository.findByCategoryId(categoryId);
+        return advertRepository.findAdvertsByUser_Id(categoryId);
     }
 
     @GetMapping("/city/{city}")
-    public List<Advert> getByCity(@PathVariable(value = "city") String city) {
-        return advertRepository.findAdvertsByCityIsLike(city);
+    public List<Advert> getByCity(@PathVariable(value = "city") String cityDistrict) {
+        return advertRepository.findAdvertsByCityDistrictLike(cityDistrict);
     }
 
     @GetMapping("/text/{text}")

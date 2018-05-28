@@ -14,6 +14,8 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Optional;
 
+
+
 @RestController
 @RequestMapping("category")
 @Api(value = "category", description = "Basic crud over category entity.")

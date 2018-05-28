@@ -16,6 +16,8 @@ import sk.bazos.model.User;
 import sk.bazos.repository.UserRepository;
 import sk.bazos.security.JwtTokenProvider;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
@@ -38,6 +40,9 @@ public class UserService implements UserDetailsService {
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    @PersistenceContext
+    private EntityManager entityManager;
+
     @PostMapping("login")
     public String login(@RequestParam("username") String username, @RequestParam("password") String password) {
         try {
@@ -48,12 +53,25 @@ public class UserService implements UserDetailsService {
         }
     }
 
+
+    @PutMapping("/{id}")
+        public User updateUser(@PathVariable(value = "id")Long id,@RequestBody User user) {
+        //User userid= (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        //User reference = entityManager.getReference(User.class, userid.getId());
+        User userToUpdate = userRepository.getOne(id);
+        userToUpdate.setUsername(user.getUsername());
+        userToUpdate.setEmail(user.getEmail());
+        userToUpdate.setPassword(user.getPassword());
+        userToUpdate.setPhonenumber(user.getPhonenumber());
+        return userRepository.save(userToUpdate);
+    }
+
+
     @GetMapping("/profile")
     public User getUserProfile(HttpServletRequest req) {
         System.out.println(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         return userRepository.findByUsername(jwtTokenProvider.getUsername(jwtTokenProvider.resolveToken(req)));
     }
-
     @PostMapping
     @Transactional
     public Long createUser(@Valid @RequestBody(required = true) User user) {
@@ -64,7 +82,7 @@ public class UserService implements UserDetailsService {
     }
 
     @PostMapping("admin")
-//    @Secured("ROLE_ADMIN")
+//   @Secured("ROLE_ADMIN")
     @Transactional
     public Long createAdmin(@Valid @RequestBody(required = true) User user) {
         final String password = user.getPassword();

@@ -22,7 +22,27 @@ public class Advert {
     @JsonIgnore
     private Category category;
     private Long price;
-    private String city;
+    private String cityDistrict;
+    private String district;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private PhotoAdvert photoAdvert;
+
+
+    public PhotoAdvert getPhotoAdvert() {
+        return photoAdvert;
+    }
+
+
+
+    public String getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(String district) {
+        this.district = district;
+    }
+
+
 
     public Long getId() {
         return id;
@@ -64,12 +84,12 @@ public class Advert {
         this.price = price;
     }
 
-    public String getCity() {
-        return city;
+    public String getCityDistrict() {
+        return cityDistrict;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setCityDistrict(String cityDistrict) {
+        this.cityDistrict = cityDistrict;
     }
 
     public Category getCategory() {
@@ -78,5 +98,9 @@ public class Advert {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public void setPhotoAdvert(PhotoAdvert photoAdvert) {
+        this.photoAdvert = photoAdvert;
     }
 }
