@@ -1,15 +1,11 @@
 package sk.bazos.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import sk.bazos.model.Advert;
-import sk.bazos.model.Category;
 import sk.bazos.model.User;
-import sk.bazos.service.util.AdvertUtil;
 import sk.bazos.to.AdvertFindDto;
 
-import javax.persistence.NamedQuery;
 import java.util.List;
 
 public interface AdvertRepository extends JpaRepository<Advert, Long> {
@@ -25,8 +21,6 @@ public interface AdvertRepository extends JpaRepository<Advert, Long> {
     List<Advert> findAdvertsByUser_Id(Long id);
 
     List<Advert> findAdvertsByCategorySubcategoriesOrderById(Long id);
-
-    //List<Advert> findAdvertsByCategoryAndCityDistrictLike(AdvertFindDto advertFindDto);
-
-    //List<Advert> findAdvertsByCategorySubcategoriesOrderById(AdvertFindDto advertFindDto);
+//desc dist
+    //List<Advert> findAdvertsByDescrIsContainingAndDistrictLike(AdvertFindDto id);
 }

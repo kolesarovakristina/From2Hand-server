@@ -9,6 +9,7 @@ import sk.bazos.model.Advert;
 import sk.bazos.model.Category;
 import sk.bazos.model.User;
 import sk.bazos.repository.AdvertRepository;
+import sk.bazos.service.util.AdvertFindUtil;
 import sk.bazos.service.util.AdvertUtil;
 import sk.bazos.to.AdvertCreateDto;
 import sk.bazos.to.AdvertFindDto;
@@ -46,7 +47,8 @@ public class AdvertService {
     //@PostMapping
     //@Secured("ROLE_USER")
     //public List<Advert> findAdvert(@RequestBody AdvertFindDto advertFindDto) {
-  //      return advertRepository.findAdvertsByCategorySubcategoriesOrderById(advertFindDto);
+      //  Advert advert = AdvertFindUtil.fromCreate(advertFindDto);
+        //return advertRepository.findAdvertsByCategorySubcategoriesOrderById(advertFindDto);
     //}
 
     @GetMapping("/all")
@@ -92,8 +94,8 @@ public class AdvertService {
     }
 
     @GetMapping("/category/{id}")
-    public List<Advert> getBySubCategory(@PathVariable(value = "id") Long SubcategoryId) {
-        return advertRepository.findAdvertsByCategorySubcategoriesOrderById(SubcategoryId);
+    public List<Advert> getBySubCategory(@PathVariable(value = "id") Long Id) {
+        return advertRepository.findAdvertsByCategorySubcategoriesOrderById(Id);
     }
 
 
