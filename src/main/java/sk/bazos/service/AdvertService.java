@@ -95,7 +95,7 @@ public class AdvertService {
 
     @GetMapping("/category/{id}")
     public List<Advert> getBySubCategory(@PathVariable(value = "id") Long Id) {
-        return advertRepository.findAdvertsByCategorySubcategoriesOrderById(Id);
+        return advertRepository.findAdvertsByCategory_Id(Id);
     }
 
 
