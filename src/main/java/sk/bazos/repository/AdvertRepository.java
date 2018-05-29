@@ -20,7 +20,7 @@ public interface AdvertRepository extends JpaRepository<Advert, Long> {
 
     List<Advert> findAdvertsByUser_Id(Long id);
 
-    List<Advert> findAdvertsByCategorySubcategoriesOrderById(Long id);
+   // List<Advert> findAdvertsByCategorySubcategoriesOrderById(Long id);
 //desc dist
     //List<Advert> findAdvertsByDescrIsContainingAndDistrictLike(AdvertFindDto id);
 }

@@ -44,12 +44,6 @@ public class AdvertService {
                 return advertRepository.save(advert).getId();
     }
 
-    //@PostMapping
-    //@Secured("ROLE_USER")
-    //public List<Advert> findAdvert(@RequestBody AdvertFindDto advertFindDto) {
-      //  Advert advert = AdvertFindUtil.fromCreate(advertFindDto);
-        //return advertRepository.findAdvertsByCategorySubcategoriesOrderById(advertFindDto);
-    //}
 
     @GetMapping("/all")
     public List<Advert> getAllAdvert() {

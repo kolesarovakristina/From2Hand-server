@@ -14,7 +14,7 @@ public class Advert {
     @GeneratedValue
     private Long id;
     @ManyToOne
-    @JsonIgnore
+    //@JsonIgnore
     private User user;
     private String name;
     private String descr;

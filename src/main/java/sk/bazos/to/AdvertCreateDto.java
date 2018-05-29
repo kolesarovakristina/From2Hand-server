@@ -14,7 +14,7 @@ public class AdvertCreateDto implements Serializable{
     private String cityDistrict;
     private MultipartFile photo;
 
-    
+
     public MultipartFile getPhoto() {
         return photo; }
 
