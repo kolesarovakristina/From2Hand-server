@@ -44,7 +44,6 @@ public class AdvertService {
                 return advertRepository.save(advert).getId();
     }
 
-
     @GetMapping("/all")
     public List<Advert> getAllAdvert() {
         return advertRepository.findAll();
@@ -80,7 +79,6 @@ public class AdvertService {
         return advertRepository.save(advertItemToupdate);
     }
 
-
     @DeleteMapping("/{id}")
     public void deleteAdvert(@PathVariable(value = "id") Long id) {
         Advert advert = advertRepository.getOne(id);
@@ -102,6 +100,14 @@ public class AdvertService {
     public List<Advert> getByText(@PathVariable(value = "text") String text) {
         return advertRepository.findAdvertsByNameContaining(text);
     }
-
+    @GetMapping("/search/{text}/{city}/{id}/{pricemin}/{pricemax}")
+    public List<Advert> getBysearchBar(@PathVariable(value = "text") String text,
+                                       @PathVariable(value = "city") String cityDistrict,
+                                       @PathVariable(value = "id") Long id,
+                                       @PathVariable(value = "pricemin") Long pricemin,
+                                       @PathVariable(value = "pricemax") Long pricemax
+                                       ) {
+        return advertRepository.findAdvertsByDescrIsContainingAndDistrictLikeAndCategoryIdAndAndPriceBetween(text,cityDistrict,id,pricemin,pricemax);
+    }
 
 }
