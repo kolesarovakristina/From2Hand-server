@@ -25,7 +25,6 @@ public class User implements UserDetails {
     private String email;
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER) //TODO update cez @jointable
     private List<Role> roles;
-
     public Long getId() {
         return id;
     }

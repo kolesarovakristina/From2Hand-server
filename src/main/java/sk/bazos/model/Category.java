@@ -15,7 +15,6 @@ public class Category implements Serializable {
     private String title;
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Photo photo;
-
     @ManyToOne
     @JsonIgnore
     private Category parent;
