@@ -23,7 +23,6 @@ public class User implements UserDetails {
     @JsonIgnore
     private String password;
     private String phonenumber;
-    @JsonIgnore
     private String email;
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER) //TODO update cez @jointable
     @JsonIgnore
