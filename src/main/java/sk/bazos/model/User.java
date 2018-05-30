@@ -20,10 +20,13 @@ public class User implements UserDetails {
     @NotNull
     private String username;
     @NotNull
+    @JsonIgnore
     private String password;
     private String phonenumber;
+    @JsonIgnore
     private String email;
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER) //TODO update cez @jointable
+    @JsonIgnore
     private List<Role> roles;
     public Long getId() {
         return id;
