@@ -19,7 +19,7 @@ public class Advert {
     private String name;
     private String descr;
     @ManyToOne
-    @JsonIgnore
+    //@JsonIgnore
     private Category category;
     private Long price;
     private String cityDistrict;

@@ -19,10 +19,10 @@ public class Category implements Serializable {
     @ManyToOne
     @JsonIgnore
     private Category parent;
-
+    //@JsonIgnore
     @OneToMany(fetch = FetchType.LAZY) //todo bud pouzit jointable
     private List<Category> subcategories = new ArrayList<>();
-
+    @JsonIgnore
     @OneToMany(mappedBy = "category")
     private List<Advert> adverts;
 
