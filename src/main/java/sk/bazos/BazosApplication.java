@@ -12,5 +12,4 @@ public class BazosApplication {
         SpringApplication.run(BazosApplication.class, args);
     }
 
-
 }

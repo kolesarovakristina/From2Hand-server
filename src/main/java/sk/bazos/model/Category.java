@@ -15,12 +15,11 @@ public class Category implements Serializable {
     private String title;
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Photo photo;
-
     @ManyToOne
     @JsonIgnore
     private Category parent;
     //@JsonIgnore
-    @OneToMany(fetch = FetchType.LAZY) //todo bud pouzit jointable
+    @OneToMany(fetch = FetchType.LAZY)
     private List<Category> subcategories = new ArrayList<>();
     @JsonIgnore
     @OneToMany(mappedBy = "category")

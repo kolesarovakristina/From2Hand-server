@@ -9,10 +9,8 @@ import sk.bazos.model.Advert;
 import sk.bazos.model.Category;
 import sk.bazos.model.User;
 import sk.bazos.repository.AdvertRepository;
-import sk.bazos.service.util.AdvertFindUtil;
 import sk.bazos.service.util.AdvertUtil;
 import sk.bazos.to.AdvertCreateDto;
-import sk.bazos.to.AdvertFindDto;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -35,13 +33,14 @@ public class AdvertService {
     public Long createAdvert(@ModelAttribute AdvertCreateDto advertCreateDto) {
         Advert advert = AdvertUtil.fromCreate(advertCreateDto);
         if (advertCreateDto.getCategory() != null) {
-            Category category = entityManager.getReference(Category.class, advertCreateDto.getCategory());
+            Category category = entityManager.find(Category.class, advertCreateDto.getCategory());
             advert.setCategory(category);
         }
-        User user= (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User reference = entityManager.getReference(User.class, user.getId());
         advert.setUser(reference);
-                return advertRepository.save(advert).getId();
+
+        return advertRepository.save(advert).getId();
     }
 
     @GetMapping("/all")
@@ -52,7 +51,7 @@ public class AdvertService {
 
     @GetMapping
     public List<Advert> getAllUserAdvert() {
-        User user= (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User reference = entityManager.getReference(User.class, user.getId());
         return advertRepository.findAdvertsByUser_Id(reference.getId());
     }
@@ -62,6 +61,12 @@ public class AdvertService {
         Optional<Advert> advertToupdate = advertRepository.findById(id);
         return advertToupdate;
     }
+
+
+    //  @GetMapping("/subcat1/{id}")
+    //public List<Advert> getAdvertBySub(@PathVariable(value = "id") Long id) {
+    // return advertRepository.findAdvertsByCategoryContaining(id);
+    // }
 
 
     @PutMapping("/{id}")
@@ -100,14 +105,15 @@ public class AdvertService {
     public List<Advert> getByText(@PathVariable(value = "text") String text) {
         return advertRepository.findAdvertsByNameContaining(text);
     }
+
     @GetMapping("/search/{text}/{city}/{id}/{pricemin}/{pricemax}")
     public List<Advert> getBysearchBar(@PathVariable(value = "text") String text,
                                        @PathVariable(value = "city") String cityDistrict,
                                        @PathVariable(value = "id") Long id,
                                        @PathVariable(value = "pricemin") Long pricemin,
                                        @PathVariable(value = "pricemax") Long pricemax
-                                       ) {
-        return advertRepository.findAdvertsByDescrIsContainingAndDistrictLikeAndCategoryIdAndAndPriceBetween(text,cityDistrict,id,pricemin,pricemax);
+    ) {
+        return advertRepository.findAdvertsByDescrIsContainingAndDistrictLikeAndCategoryIdAndAndPriceBetween(text, cityDistrict, id, pricemin, pricemax);
     }
 
 }
