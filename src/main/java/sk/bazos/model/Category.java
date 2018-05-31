@@ -12,17 +12,17 @@ public class Category implements Serializable {
     @Id
     @GeneratedValue
     private Long id;
-    //@JsonIgnore
     private String title;
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Photo photo;
+
     @ManyToOne
-    //@JsonIgnore
-    private Category parent;
     @JsonIgnore
+    private Category parent;
+
     @OneToMany(fetch = FetchType.LAZY) //todo bud pouzit jointable
     private List<Category> subcategories = new ArrayList<>();
-    @JsonIgnore
+
     @OneToMany(mappedBy = "category")
     private List<Advert> adverts;
 
