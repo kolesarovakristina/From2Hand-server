@@ -55,6 +55,7 @@ public class AdvertService {
         User reference = entityManager.getReference(User.class, user.getId());
         System.out.println(reference.getId());
         return advertRepository.findAdvertsByUser_Id(reference.getId());
+
     }
 
     @GetMapping("/{id}")
@@ -62,13 +63,6 @@ public class AdvertService {
         Optional<Advert> advertToupdate = advertRepository.findById(id);
         return advertToupdate;
     }
-
-
-    //  @GetMapping("/subcat1/{id}")
-    //public List<Advert> getAdvertBySub(@PathVariable(value = "id") Long id) {
-    // return advertRepository.findAdvertsByCategoryContaining(id);
-    // }
-
 
     @PutMapping("/{id}")
     public Advert updateAdvert(@PathVariable(value = "id") Long id, @RequestBody Advert advert) {

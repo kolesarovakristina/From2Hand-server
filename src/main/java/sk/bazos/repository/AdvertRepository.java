@@ -25,6 +25,4 @@ public interface AdvertRepository extends JpaRepository<Advert, Long> {
                                                                @Param("id")Long id, @Param("pricemin")Long pricemin,
                                                                             @Param("pricemax")Long pricemax
                                                                             );
-
-
 }
