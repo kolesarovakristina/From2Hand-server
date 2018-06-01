@@ -53,6 +53,7 @@ public class AdvertService {
     public List<Advert> getAllUserAdvert() {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User reference = entityManager.getReference(User.class, user.getId());
+        System.out.println(reference.getId());
         return advertRepository.findAdvertsByUser_Id(reference.getId());
     }
 

@@ -4,11 +4,12 @@ package sk.bazos.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @NamedQuery(name = "findByCategoryId",
         query = "SELECT a from Advert a join fetch a.category c join fetch c.parent cp where c.id=:categoryId or cp.id=:categoryId")
-public class Advert {
+public class Advert implements Serializable {
 
     @Id
     @GeneratedValue

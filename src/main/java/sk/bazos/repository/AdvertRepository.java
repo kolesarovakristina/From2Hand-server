@@ -13,7 +13,7 @@ public interface AdvertRepository extends JpaRepository<Advert, Long> {
 
     List<Advert>findAdvertsByCategory_IdOrderByIdDesc(@Param("categoryId") Long categoryId);
 
-    List<Advert>findAdvertsByUser_Id(@Param("id") User id);
+    List<Advert>findAdvertsByUserIsLike(@Param("id") User id);
 
     List<Advert>findAdvertsByCityDistrictLike(@Param("cityDistrict")String cityDistrict);
 
@@ -21,8 +21,7 @@ public interface AdvertRepository extends JpaRepository<Advert, Long> {
 
     List<Advert> findAdvertsByUser_Id(Long id);
 
-    List<Advert> findAdvertsByDescrIsContainingAndDistrictLikeAndCategoryIdAndAndPriceBetween(@Param("text")String text,
-                                                               @Param("cityDistrict")String cityDistrict,
+    List<Advert> findAdvertsByDescrIsContainingAndDistrictLikeAndCategoryIdAndAndPriceBetween(@Param("text")String text,@Param("cityDistrict")String cityDistrict,
                                                                @Param("id")Long id, @Param("pricemin")Long pricemin,
                                                                             @Param("pricemax")Long pricemax
                                                                             );

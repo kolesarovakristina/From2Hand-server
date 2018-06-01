@@ -7,32 +7,34 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 
 @Entity
-public class User implements UserDetails {
+public class User implements UserDetails,Serializable {
+    //@JsonIgnore
     @Id
     @GeneratedValue
     private Long id;
     @NotNull
+    //@JsonIgnore
     private String username;
     @NotNull
     @JsonIgnore
     private String password;
+    //@JsonIgnore
     private String phonenumber;
+    //@JsonIgnore
     private String email;
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER) //TODO update cez @jointable
-    @JsonIgnore
+    //@JsonIgnore
     private List<Role> roles;
-    public Long getId() {
-        return id;
+    public Long getId() { return id;
     }
-
-    @Override
-    @JsonIgnore
+    @Override @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;
     }

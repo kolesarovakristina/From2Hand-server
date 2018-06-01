@@ -72,6 +72,7 @@ public class UserService implements UserDetailsService {
         System.out.println(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         return userRepository.findByUsername(jwtTokenProvider.getUsername(jwtTokenProvider.resolveToken(req)));
     }
+
     @PostMapping
     @Transactional
     public Long createUser(@Valid @RequestBody(required = true) User user) {
