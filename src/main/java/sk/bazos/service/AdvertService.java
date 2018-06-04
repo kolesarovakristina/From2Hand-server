@@ -101,14 +101,13 @@ public class AdvertService {
         return advertRepository.findAdvertsByNameContaining(text);
     }
 
-    @GetMapping("/search/{text}/{city}/{id}/{pricemin}/{pricemax}")
+    @GetMapping("/search/{text}/{city}/{pricemin}/{pricemax}")
     public List<Advert> getBysearchBar(@PathVariable(value = "text") String text,
                                        @PathVariable(value = "city") String cityDistrict,
-                                       @PathVariable(value = "id") Long id,
                                        @PathVariable(value = "pricemin") Long pricemin,
                                        @PathVariable(value = "pricemax") Long pricemax
     ) {
-        return advertRepository.findAdvertsByDescrIsContainingAndDistrictLikeAndCategoryIdAndAndPriceBetween(text, cityDistrict, id, pricemin, pricemax);
+        return advertRepository.findAdvertsByDescrIsContainingAndDistrictLikeAndPriceBetween(text, cityDistrict,pricemin, pricemax);
     }
 
 }
