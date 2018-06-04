@@ -19,7 +19,7 @@ public interface AdvertRepository extends JpaRepository<Advert, Long> {
 
     List<Advert>findAdvertsByNameContaining(@Param("text")String text);
 
-    List<Advert> findAdvertsByUser_Id(Long id);
+    List<Advert> findAdvertsByUser_IdOrderByIdDesc(Long id);
 
     List<Advert> findAdvertsByDescrIsContainingAndDistrictLikeAndPriceBetween(@Param("text")String text,@Param("cityDistrict")String cityDistrict,
                                                                                               @Param("pricemin")Long pricemin,

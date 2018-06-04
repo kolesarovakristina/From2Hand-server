@@ -6,6 +6,7 @@ import java.io.Serializable;
 
 public class AdvertCreateDto implements Serializable{
 
+
     private String name;
     private String descr;
     private Long category;
@@ -13,6 +14,7 @@ public class AdvertCreateDto implements Serializable{
     private String district;
     private String cityDistrict;
     private MultipartFile photo;
+
 
 
     public MultipartFile getPhoto() {

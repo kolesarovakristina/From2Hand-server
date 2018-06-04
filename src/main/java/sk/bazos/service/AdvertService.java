@@ -54,7 +54,7 @@ public class AdvertService {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User reference = entityManager.getReference(User.class, user.getId());
         System.out.println(reference.getId());
-        return advertRepository.findAdvertsByUser_Id(reference.getId());
+        return advertRepository.findAdvertsByUser_IdOrderByIdDesc(reference.getId());
 
     }
 
@@ -75,6 +75,7 @@ public class AdvertService {
         }
         advertItemToupdate.setPrice(advert.getPrice());
         advertItemToupdate.setCityDistrict(advert.getCityDistrict());
+        advertItemToupdate.setDistrict(advert.getDistrict());
 
         return advertRepository.save(advertItemToupdate);
     }
